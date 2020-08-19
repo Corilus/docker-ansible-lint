@@ -20,6 +20,8 @@ RUN apk add --no-cache git \
  && apk del .build-deps \
  && rm -rf ~/.cache/
 
+RUN ansible-galaxy collection install theforeman.foreman
+
 ENV ANSIBLE_LOCAL_TEMP /tmp
 WORKDIR /work
 CMD ["ansible-lint", "--help"]
