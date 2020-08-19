@@ -12,7 +12,7 @@
 #### show usage
 
 ```console
-$ docker run --rm yokogawa/ansible-lint
+$ docker run --rm corilus/ansible-lint
 ```
 
 #### example
