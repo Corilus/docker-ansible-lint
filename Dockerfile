@@ -22,6 +22,7 @@ RUN apk add --no-cache git \
  && rm -rf ~/.cache/
 
 RUN ansible-galaxy collection install theforeman.foreman
+RUN ansible-galaxy collection install ansible.posix
 
 ENV ANSIBLE_LOCAL_TEMP /tmp
 WORKDIR /work
