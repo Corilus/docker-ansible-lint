@@ -29,7 +29,9 @@ jobs:
             --tag "$IMAGE_NAME:latest" \
             --label="org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
             --label="org.opencontainers.image.revision=$GITHUB_SHA" \
-            --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)"
+            --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)" \
+            --provenance \
+            --sbom
 
       - name: Login to DockerHub
         if: github.ref == 'refs/heads/master'
