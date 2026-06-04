@@ -29,7 +29,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build the Docker image
+      - name: Build the Docker image (push on master)
+        if: github.ref == 'refs/heads/master'
         run: |
           docker buildx build . \
             --file Dockerfile \
@@ -39,4 +40,16 @@ jobs:
             --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)" \
             --provenance=true \
             --sbom=true \
-            $([ "$GITHUB_REF" = 'refs/heads/master' ] && echo '--push')
+            --push
+
+      - name: Build the Docker image (pull requests)
+        if: github.ref != 'refs/heads/master'
+        run: |
+          docker buildx build . \
+            --file Dockerfile \
+            --tag "$IMAGE_NAME:latest" \
+            --label="org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+            --label="org.opencontainers.image.revision=$GITHUB_SHA" \
+            --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)" \
+            --provenance=true \
+            --sbom=true
