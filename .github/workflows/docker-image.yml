@@ -24,7 +24,7 @@ jobs:
 
       - name: Build the Docker image
         run: | 
-          docker build . \
+          docker buildx build . \
             --file Dockerfile \
             --tag "$IMAGE_NAME:latest" \
             --label="org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
