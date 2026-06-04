@@ -30,8 +30,8 @@ jobs:
             --label="org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
             --label="org.opencontainers.image.revision=$GITHUB_SHA" \
             --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)" \
-            --provenance \
-            --sbom
+            --provenance=true \
+            --sbom=true
 
       - name: Login to DockerHub
         if: github.ref == 'refs/heads/master'
