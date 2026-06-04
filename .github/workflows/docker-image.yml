@@ -40,9 +40,9 @@ jobs:
             --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)" \
             --provenance=true \
             --sbom=true \
-            --push
+            --output type=image,push=true
 
-      - name: Build the Docker image (pull requests)
+      - name: Build the Docker image (non-master branches)
         if: github.ref != 'refs/heads/master'
         run: |
           docker buildx build . \
@@ -52,4 +52,5 @@ jobs:
             --label="org.opencontainers.image.revision=$GITHUB_SHA" \
             --label="org.opencontainers.image.created=$(date --rfc-3339=seconds)" \
             --provenance=true \
-            --sbom=true
+            --sbom=true \
+            --output type=image
